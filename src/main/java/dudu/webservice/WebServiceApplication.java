@@ -1,13 +1,13 @@
-package dudu.webSerivce;
+package dudu.webservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WebSerivceApplication {
+public class WebServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WebSerivceApplication.class, args);
+		SpringApplication.run(WebServiceApplication.class, args);
 	}
 
 }

@@ -12,6 +12,9 @@ java {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
+tasks.withType<JavaCompile> {
+	options.compilerArgs.add("-parameters")
+}
 
 configurations {
 	compileOnly {
@@ -25,6 +28,9 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	//머스태쳐 템플릿
+	implementation("org.springframework.boot:spring-boot-starter-mustache")
+
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.projectlombok:lombok")

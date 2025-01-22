@@ -1,6 +1,7 @@
 package dudu.webservice.web;
 
 
+import dudu.webservice.config.auth.dto.SessionUser;
 import dudu.webservice.service.posts.PostsService;
 import dudu.webservice.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,10 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("posts", postsService.findAllDesc());
+        SessionUser user =(SessionUser) model.getAttribute("user");
+        if(user!=null){
+            model.addAttribute("userName", user.getName());
+        }
         return "index";
     }
 
@@ -31,4 +36,5 @@ public class IndexController {
         model.addAttribute("posts", dto);
         return "posts-update";
     }
+
 }

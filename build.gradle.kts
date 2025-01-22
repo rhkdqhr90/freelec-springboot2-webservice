@@ -30,6 +30,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	//머스태쳐 템플릿
 	implementation("org.springframework.boot:spring-boot-starter-mustache")
+	//시큐리티 oauth2
+	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+
 
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")

@@ -10,15 +10,18 @@ version = "0.0.1-SNAPSHOT"
 java {
 	toolchain {
 		languageVersion.set(JavaLanguageVersion.of(17))
-
-
-
-
-
+		vendor.set(JvmVendorSpec.ADOPTIUM) // Adoptium 설정
 
 
 	}
 }
+
+// Gradle에 다운로드 리포지토리 설정 추가
+tasks.withType<JavaCompile>().configureEach {
+	options.isFork = true
+}
+
+
 tasks.withType<JavaCompile> {
 	options.compilerArgs.add("-parameters")
 }

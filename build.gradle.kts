@@ -1,7 +1,9 @@
 plugins {
+
 	java
-	id("org.springframework.boot") version "3.4.1"
-	id("io.spring.dependency-management") version "1.1.7"
+	id("org.springframework.boot") version "3.1.4" // 안정화된 호환 버전 사용
+	id("io.spring.dependency-management") version "1.1.3" // 버전 호환 확인
+
 }
 
 group = "dudu"
@@ -10,7 +12,7 @@ version = "0.0.1-SNAPSHOT"
 java {
 	toolchain {
 		languageVersion.set(JavaLanguageVersion.of(17))
-		vendor.set(JvmVendorSpec.ADOPTIUM) // Adoptium 설정
+
 
 
 	}

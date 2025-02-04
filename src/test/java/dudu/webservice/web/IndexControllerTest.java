@@ -16,8 +16,10 @@ class IndexControllerTest {
     public void mainPage_loading(){
         //when
         String body = this.restTemplate.getForObject("/", String.class);
-        //then
+
+        // then
         Assertions.assertThat(body).contains("스프링 부트로 시작하는 웹서비스");
+
     }
 
 }

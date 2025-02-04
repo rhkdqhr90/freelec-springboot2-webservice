@@ -23,8 +23,8 @@ class PostsRepositoryTest {
     @Test
     public void 게시글_불러오기(){
         //given
-        String title = "test";
-        String content = "test";
+        String title = "title";
+        String content = "content";
         postsRepository.save(Posts.builder().title(title).content(content).author("aa").build());
         //when
         List<Posts> posts = postsRepository.findAll();

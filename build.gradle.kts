@@ -42,6 +42,8 @@ dependencies {
 	implementation("com.h2database:h2")
 
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	testImplementation("org.springframework.security:spring-security-test")
+
 }
 
 tasks.withType<Test> {

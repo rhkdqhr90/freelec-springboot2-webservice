@@ -4,6 +4,7 @@ import dudu.webservice.web.HomeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 
@@ -18,6 +19,7 @@ class WebServiceApplicationTests {
 	@Autowired
 	private MockMvc mvc;
 
+	@WithMockUser(roles = "USER")
 	@Test
 	public void getMockMvc() throws Exception {
 		String hello = "hello";
@@ -26,6 +28,7 @@ class WebServiceApplicationTests {
 				.andExpect(content().string("hello"));
 	}
 
+	@WithMockUser(roles = "USER")
 	@Test
 	public void hello_return() throws Exception {
 		String name = "hello";

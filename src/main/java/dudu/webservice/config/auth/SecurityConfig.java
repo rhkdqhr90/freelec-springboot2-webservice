@@ -25,7 +25,7 @@ public class SecurityConfig {
                         .frameOptions(frameOptions -> frameOptions.disable()) // Frame Options 비활성화
                 )
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/","/css/**","/images/**","/js/**","/h2-console/**").permitAll() // `/` 경로는 인증 없이 접근 가능
+                        .requestMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll() // `/` 경로는 인증 없이 접근 가능
                         .requestMatchers("/api/v1/**").hasRole(Role.USER.name())
                         .anyRequest().authenticated() // 그 외 경로는 인증 필요
                 )
@@ -40,7 +40,11 @@ public class SecurityConfig {
                         })
                 )
                 .oauth2Login(oauth -> oauth
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(customOAuth2UserService) // CustomOAuth2UserService 등록
+                        )
                         .defaultSuccessUrl("/", true) // 로그인 성공 시 이동할 URL
+
                 );
 
         return http.build();

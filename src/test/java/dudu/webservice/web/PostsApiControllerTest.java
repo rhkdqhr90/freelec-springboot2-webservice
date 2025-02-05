@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -25,6 +26,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.util.List;
 
@@ -34,14 +37,13 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class PostsApiControllerTest {
     @Autowired
     private WebApplicationContext context;
-    private MockMvc mvc;
 
+    private MockMvc mvc;
 
     @LocalServerPort
     private int port;
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+
     @Autowired
     private PostsRepository postsRepository;
 
@@ -49,7 +51,7 @@ class PostsApiControllerTest {
     public void setup() {
         mvc = MockMvcBuilders
                 .webAppContextSetup(context)
-                .apply(SecurityMockMvcConfigurers.springSecurity()) // Spring Security 적용
+                .apply(springSecurity()) // Spring Security 적용
                 .build();
     }
 
@@ -62,9 +64,9 @@ class PostsApiControllerTest {
     @WithMockUser(roles = "USER")
     public void Posts_등록된다(){
         //given
-        String title = "test";
-        String content = "test";
-        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder().title(title).content(content).author("aa").build();
+        String title = "title";
+        String content = "content";
+        PostsSaveRequestDto requestDto = PostsSaveRequestDto.builder().title(title).content(content).author("user").build();
         String url  = "http://localhost:" + port + "/api/v1/posts";
         //when
         try {
@@ -103,14 +105,11 @@ class PostsApiControllerTest {
         HttpEntity<PostsUpdateRequestDto> entity = new HttpEntity<>(requestDto);
 
         //when
-        try {
-            mvc.perform(MockMvcRequestBuilders.put(url)
+        mvc.perform(MockMvcRequestBuilders.put(url)
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(new ObjectMapper().writeValueAsString(requestDto)))
                     .andExpect(status().isOk());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
         //then
 
         List<Posts> all = postsRepository.findAll();
